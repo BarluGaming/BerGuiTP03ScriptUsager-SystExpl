@@ -4,19 +4,25 @@
 # 17 Décembre 2021
 
 # Début du script
-Clear-Host
-Set-Location C:\TPSE\
+Clear-Host # Mise à zéro du terminal
+Set-Location C:\TPSE\ # Emplacement des opérations
+$ErrorActionPreference = "Stop" # Prévention des erreurs
 
-# Prévention des erreurs
-$ErrorActionPreference = "Stop"
+$Names = Get-Content .\nom.csv # Déclaration - Contenu du fichier source
+$Group = "Entreprise" # Déclaration variable
 
-# Déclaration des variables
-$Names = Get-Content .\nom.csv
-$Group = "Entreprise"
+try {
+    Get-LocalGroup $Group # Validation de l'existence du groupe
+}
+catch {  
+    New-LocalGroup -Name $Group # Création du groupe
+}
+try {
+    Get-Item $Group # Validation de l'existence du répertoire
+}
+catch {
+    New-Item -ItemType "directory" -Name $Group # Création du répertoire
+}
 
-# Création du groupe
-New-LocalGroup -Name $Group
 
-# Création du répertoire
-New-Item -ItemType "directory" -Name $Group
 
