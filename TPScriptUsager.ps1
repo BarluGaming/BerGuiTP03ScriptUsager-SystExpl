@@ -12,5 +12,6 @@ $ErrorActionPreference = "Stop"
 
 # Déclaration des variables
 $Names = Get-Content .\nom.csv
+write-host $Names
 $Group = "Entreprise"
-Write-Host $Entreprise
+Write-Host $Group
