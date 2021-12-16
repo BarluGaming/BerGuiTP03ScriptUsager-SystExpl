@@ -12,6 +12,11 @@ $ErrorActionPreference = "Stop"
 
 # Déclaration des variables
 $Names = Get-Content .\nom.csv
-write-host $Names
 $Group = "Entreprise"
-Write-Host $Group
+
+# Création du groupe
+New-LocalGroup -Name $Group
+
+# Création du répertoire
+New-Item -ItemType "directory" -Name $Group
+
