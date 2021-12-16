@@ -1,1 +1,0 @@
-# BerGuiTP03ScriptUsager-SystExpl

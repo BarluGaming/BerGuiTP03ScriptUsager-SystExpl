@@ -1,5 +1,0 @@
-This is my first test.
-
-This is my first github edit.
-
-This is my first local edit.
