@@ -5,10 +5,10 @@
 
 # Début du script
 Clear-Host # Mise à zéro du terminal
-Set-Location C:\TPSE # Emplacement des opérations
+Set-Location D:\ # Emplacement des opérations
 $ErrorActionPreference = "Stop" # Prévention des erreurs
 try {
-    Get-Item -Path C:\TPSE\nom.csv # Validation de la présence du fichier source
+    Get-Item -Path D:\BerGuiTP03ScriptUsager-SystExpl\nom.csv # Validation de la présence du fichier source
 }
 catch {
     git clone https://github.com/BarluGaming/BerGuiTP03ScriptUsager-SystExpl.git # Récupération du fichier source si non-existant
