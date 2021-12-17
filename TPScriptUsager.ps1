@@ -5,7 +5,7 @@
 
 # Début du script
 Clear-Host # Mise à zéro du terminal
-Set-Location D:\ # Emplacement des opérations
+Set-Location C:\TPSE\ # Emplacement des opérations
 $ErrorActionPreference = "Stop" # Prévention des erreurs
 $Names = Get-Content .\nom.csv # Déclaration - Contenu du fichier source
 $Group = "Entreprise" # Déclaration variable à usage multiple
@@ -25,19 +25,14 @@ catch {
 foreach ($Name in $Names) {    
     $UserName = $Name.split(' ')[1] # Obtention du nom de famille seul
     $UserName = $Name[0] + $UserName # Concaténation de la première lettre du prénom et du nom de famille
-    $UserName = $UserName.ToLower() # Convertir le tout en minuscules pour obtention du format désiré
-    $ExpiryDate = (Get-Date).AddMonths(6) # Déclaration - Date d'expiration en utilisant la date de création + 6 mois
-    try {
-        Get-LocalUser $UserName # Validation de l'existence de l'utilisateur
-    }
-    catch {
-        New-LocalUser -Name $UserName -AccountExpires $ExpiryDate -Description "Utilisateur de l'Entreprise" -FullName $Name -NoPassword # Création de l'utilisateur si non-existant
-        Add-LocalGroupMember -Name $Group -Member $UserName # Ajout de l'utilisateur au groupe
-        New-Item -Name $UserName -ItemType "directory" -Path $Group # Création d'un dossier au nom de l'utilisateur
-        $FilePathGreetings = "$($Group)\$($UserName)" # Déclaration - Emplacement du futur fichier contenant le message de bienvenue
-        $FileGreetings = "Greetings $($UserName).txt" # Déclaration - Nom du futur fichier contenant le message de bienvenue
-        New-Item -Name $FileGreetings -ItemType "file" -Path $FilePathGreetings -Value "Bienvenue $($Name)." # Création du fichier contenant le message de bienvenue
-    }
+    $UserName = $UserName.ToLower() # Convertir le tout en minuscules pour obtention du format désiré    
+    Remove-LocalUser -Name $UserName
+    Remove-LocalGroupMember -Name $Group -Member $UserName # Ajout de l'utilisateur au groupe
+    Remove-Item -Name $UserName -ItemType "directory" -Path $Group # Création d'un dossier au nom de l'utilisateur
+    $FilePathGreetings = "$($Group)\$($UserName)" # Déclaration - Emplacement du futur fichier contenant le message de bienvenue
+    $FileGreetings = "Greetings $($UserName).txt" # Déclaration - Nom du futur fichier contenant le message de bienvenue
+    Remove-Item -Name $FileGreetings -ItemType "file" -Path $FilePathGreetings -Value "Bienvenue $($Name)." # Création du fichier contenant le message de bienvenue
+    
 }
 Write-Host "Script Terminé - Usagers Ajoutés" # Fin du script
 
